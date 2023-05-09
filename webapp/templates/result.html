@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XAI-GPT Integration - Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <h1>Input Text:</h1>
+    <p>{{ input_text }}</p>
+    <h1>Emoji Generated:</h1>
+    <p class="emoji">{{ emoji_output }}</p>
+    <h1>LIME Explanation</h1>
+    <p class="result-container">{{ lime_explanation }}</p>
+  </body>
+</html>

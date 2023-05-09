@@ -1,0 +1,9 @@
+{
+    "APP": {
+        "ENVIRONMENT": "development",
+        "DEBUG": "true"
+    },
+    "SECRETS": {
+        "API_SECRET": "<your-openAI-key>"
+    }
+}
