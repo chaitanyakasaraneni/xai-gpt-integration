@@ -57,11 +57,12 @@ def process_text():
         prompt_upd = prompt + input_text
         emoji_output = generate_emoji(prompt_upd)
         print(f"Emoji output: {emoji_output}")
-        # lime_explanation = generate_lime_explanation(prompt_upd)
+        lime_explanation = generate_lime_explanation(prompt_upd)
 
         return render_template('result.html',
                                 input_text=input_text,
-                                emoji_output=emoji_output,)
+                                emoji_output=emoji_output,
+                                lime_explanation=lime_explanation)
     except Exception as e:
         return render_template("error.html", error_message=traceback.format_exc())
 
