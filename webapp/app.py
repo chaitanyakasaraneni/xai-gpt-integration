@@ -1,7 +1,8 @@
 import openai
-import traceback
 import numpy as np
 import json
+
+from logging import Logger
 from lime.lime_text import LimeTextExplainer
 from flask import Flask, render_template, request
 
@@ -9,11 +10,12 @@ from flask import Flask, render_template, request
 model_engine = {
     "davinci": "text-davinci-002",
     "curie": "text-curie-001",
-    "babbage": "text-babbage-001",
-    "ada": "text-ada-001"
 }
 model_selected = None
 prompt = "Convert this text into emojis:"
+
+# Initialize logger
+log = Logger(__name__)
 
 app = Flask(__name__)
 
@@ -56,15 +58,20 @@ def process_text():
         input_text = request.form['prompt']
         prompt_upd = prompt + input_text
         emoji_output = generate_emoji(prompt_upd)
-        print(f"Emoji output: {emoji_output}")
-        lime_explanation = generate_lime_explanation(prompt_upd)
+        log.debug(f"Emoji output: {emoji_output}")
+        try:
+            lime_explanation = generate_lime_explanation(prompt_upd)
+        except Exception as e:
+            log.error(f"Error generating LIME explanation: {e}")
+            lime_explanation = "Unable to generate LIME explanation: " + str(e)
 
         return render_template('result.html',
                                 input_text=input_text,
                                 emoji_output=emoji_output,
                                 lime_explanation=lime_explanation)
+
     except Exception as e:
-        return render_template("error.html", error_message=traceback.format_exc())
+        return render_template("error.html", error_message=e)
 
 if __name__ == '__main__':
     app.run(debug=True)
