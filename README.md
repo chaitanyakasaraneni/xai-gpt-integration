@@ -32,3 +32,4 @@ This is an example `python-flask` app that uses `LIME` algorithm to explain pred
     ```
 - Install required packages by using `pip install -r requirements.txt` command
 - Run the app using `python run.py`
+- Got to `localhost:5000` in your browser to access this app
