@@ -10,9 +10,10 @@ from flask import Flask, render_template, request
 model_engine = {
     "davinci": "text-davinci-002",
     "curie": "text-curie-001",
+    "babbage": "text-babbage-001",
+    "ada": "text-ada-001"
 }
 model_selected = None
-prompt = "Convert this text into emojis:"
 
 # Initialize logger
 log = Logger(__name__)
@@ -25,12 +26,12 @@ app.config.from_file('config/local.json', load=json.load)
 # Authenticate OpenAI API key
 openai.api_key = app.config['SECRETS']['API_SECRET']
 
-def generate_emoji(input_text):
+def generate_output(input_text):
     # Use OpenAI API to generate emojis for the given input text
     response = openai.Completion.create(
         engine=model_selected,
         prompt=input_text,
-        max_tokens=60,
+        max_tokens=40,
         n=1,
         stop=None,
         temperature=0.8,
@@ -40,34 +41,33 @@ def generate_emoji(input_text):
     return output_text
 
 def generate_lime_explanation(input_text):
-    # Use LIME to generate an explanation for the emoji generation
-    explainer = LimeTextExplainer(class_names=['emojis'])
-    exp = explainer.explain_instance(input_text, generate_emoji, num_features=6)
+    # Use LIME to generate an explanation
+    explainer = LimeTextExplainer()
+    exp = explainer.explain_instance(input_text, generate_output)
     return exp.as_list()
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/emoji', methods=['POST'])
+@app.route('/result', methods=['POST'])
 def process_text():
     global model_selected
     try:
     
         model_selected = model_engine[str(request.form["model"].lower())]
         input_text = request.form['prompt']
-        prompt_upd = prompt + input_text
-        emoji_output = generate_emoji(prompt_upd)
-        log.debug(f"Emoji output: {emoji_output}")
+        output_generated = generate_output(input_text)
+        print(f"Output: {output_generated}")
         try:
-            lime_explanation = generate_lime_explanation(prompt_upd)
+            lime_explanation = generate_lime_explanation(input_text)
         except Exception as e:
             log.error(f"Error generating LIME explanation: {e}")
             lime_explanation = "Unable to generate LIME explanation: " + str(e)
 
         return render_template('result.html',
                                 input_text=input_text,
-                                emoji_output=emoji_output,
+                                output_generated=output_generated,
                                 lime_explanation=lime_explanation)
 
     except Exception as e:

@@ -2,14 +2,18 @@
 <html>
   <head>
     <title>XAI-GPT Integration - Results</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   </head>
   <body>
     <h1>Input Text:</h1>
     <p>{{ input_text }}</p>
-    <h1>Emoji Generated:</h1>
-    <p class="emoji">{{ emoji_output }}</p>
+    <h1>Output Generated:</h1>
+    <p>{{ output_generated }}</p>
     <h1>LIME Explanation</h1>
     <p class="result-container">{{ lime_explanation }}</p>
   </body>

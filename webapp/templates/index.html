@@ -15,7 +15,7 @@
 	<h1 class="text-center mb-5">XAI-GPT Integration</h1>
 	<div class="row justify-content-center">
 		<div class="col-md-8">
-			<form action="/emoji" method="POST">
+			<form action="/result" method="POST">
 				<div class="form-group">
 					<label for="prompt">Prompt:</label>
 					<textarea class="form-control" id="prompt" name="prompt" rows="3" required></textarea>
@@ -23,8 +23,10 @@
 				<div class="form-group">
 					<label for="model">Model:</label>
 					<select class="form-control" id="model" name="model">
-						<option value="davinci">Emoji: Davinci</option>
-						<option value="curie">Emoji: Curie</option>
+						<option value="davinci">Davinci</option>
+						<option value="curie">Curie</option>
+						<option value="babbage">Babbage</option>
+						<option value="ada">Ada</option>
 					</select>
 				</div>
 				<button type="submit" class="btn btn-primary">Generate</button>
