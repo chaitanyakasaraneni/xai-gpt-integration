@@ -31,7 +31,7 @@ def generate_output(input_text):
     response = openai.Completion.create(
         engine=model_selected,
         prompt=input_text,
-        max_tokens=40,
+        max_tokens=60,
         n=1,
         stop=None,
         temperature=0.8,
