@@ -1,6 +1,8 @@
 # Explaining GPT Predictions
 
-This is an example `python-flask` app that uses `LIME` algorithm to explain predictions from GPT API
+This is an example `python-flask` app that uses `LIME` algorithm to explain predictions from GPT API.
+
+**NOTE:** This repo is sill a work in progress
 
 ### Folder Structure
 
